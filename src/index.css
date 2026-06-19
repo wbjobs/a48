@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'VT323', 'Courier New', monospace;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #00FF00;
+  background-color: #000000;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+}
+
+@layer utilities {
+  .crt-effect {
+    position: relative;
+  }
+
+  .crt-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      transparent 50%,
+      rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .crt-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+    z-index: 11;
+  }
+
+  .scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(0, 255, 0, 0.1);
+    pointer-events: none;
+    z-index: 12;
+    animation: scanline 6s linear infinite;
+  }
+
+  .dos-text {
+    font-family: 'VT323', 'Courier New', monospace;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  }
+
+  .dos-input {
+    font-family: 'VT323', 'Courier New', monospace;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #00FF00;
+    caret-color: #00FF00;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  }
+
+  .dos-input::placeholder {
+    color: rgba(0, 255, 0, 0.3);
+  }
+
+  .glow-green {
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.8), 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .glow-amber {
+    text-shadow: 0 0 5px rgba(255, 176, 0, 0.8), 0 0 10px rgba(255, 176, 0, 0.5);
+  }
+
+  .glow-red {
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.8), 0 0 10px rgba(255, 51, 51, 0.5);
+  }
+
+  .screen-flicker {
+    animation: flicker 0.15s infinite;
+  }
+
+  .screen-shutdown {
+    animation: shutdown 1.5s ease-in forwards;
+    transform-origin: center;
+  }
+
+  .screen-boot {
+    animation: bootUp 0.5s ease-out forwards;
+    transform-origin: center;
+  }
+
+  .blink-cursor {
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.98;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes shutdown {
+  0% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(0.02) scaleX(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(0) scaleX(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes bootUp {
+  0% {
+    transform: scaleY(0) scaleX(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(0.02) scaleX(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flashRed {
+  0%, 100% {
+    background-color: #000000;
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+}
+
+.flash-red {
+  animation: flashRed 0.2s ease-in-out 2;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00AA00;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00FF00;
+}
